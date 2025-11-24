@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicio Final - IDEAScript Avanzado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.8em;
+            color: #667eea;
+            font-weight: 600;
+            margin: 30px 0 20px 0;
+            border-left: 5px solid #764ba2;
+            padding-left: 20px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .option-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .option-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .option-icon {
+            font-size: 2em;
+            margin-right: 20px;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .spec-card {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 25px;
+            border-radius: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .spec-card:hover {
+            background: #667eea;
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .spec-card h3 {
+            color: #764ba2;
+            margin-bottom: 15px;
+        }
+        
+        .spec-card:hover h3 {
+            color: white;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 15px 20px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .flow-diagram {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .flow-step {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .flow-number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.3em;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .arrow {
+            text-align: center;
+            font-size: 2em;
+            color: #764ba2;
+            margin: 10px 0;
+        }
+        
+        .checklist-item {
+            background: white;
+            padding: 15px 20px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border-left: 4px solid #28a745;
+            display: flex;
+            align-items: center;
+        }
+        
+        .check-icon {
+            color: #28a745;
+            font-size: 1.5em;
+            margin-right: 15px;
+        }
+        
+        .score-table {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+        }
+        
+        .score-table table {
+            background: white;
+        }
+        
+        .total-row {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+            color: white !important;
+            font-weight: 700;
+            font-size: 1.2em;
+        }
+        
+        .success-banner {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: 600;
+            margin: 30px 0;
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.4);
+        }
+        
+        .icon-badge {
+            display: inline-block;
+            background: rgba(255,255,255,0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            margin: 10px;
+        }
+        
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+        }
+        
+        li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        code {
+            background: #f4f4f4;
+            padding: 3px 8px;
+            border-radius: 5px;
+            color: #e83e8c;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .slide {
+                page-break-after: always;
+                box-shadow: none;
+            }
+            .print-button {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            .slide-title {
+                font-size: 2em;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        
+        <!-- SLIDE 1: Portada -->
+        <div class="slide">
+            <h1 class="slide-title">🎯 EJERCICIO FINAL</h1>
+            <div class="highlight-box">
+                <h2 style="text-align: center; font-size: 2em; margin-bottom: 20px;">IDEAScript Avanzado</h2>
+                <h3 style="text-align: center; font-size: 1.5em;">Creación de Macro con Interfaz de Diálogo Personalizada</h3>
+            </div>
+            <div style="text-align: center; margin-top: 40px; font-size: 1.3em; color: #666;">
+                <p>📚 Capacitación IDEA</p>
+                <p>🏢 SESO S.A.</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Objetivo -->
+        <div class="slide">
+            <h2 class="slide-title">🎯 Objetivo del Ejercicio</h2>
+            <div class="info-box">
+                <p style="font-size: 1.3em; line-height: 1.8;">
+                    Crear una macro automatizada que permita al usuario seleccionar opciones mediante un 
+                    <strong style="color: #667eea;">formulario con interfaz gráfica (diálogo)</strong> para procesar 
+                    diferentes bases de datos y aplicar distintos análisis de manera interactiva.
+                </p>
+            </div>
+            
+            <h3 class="slide-subtitle">📋 ¿Qué desarrollarás?</h3>
+            <div class="two-column">
+                <div class="option-card">
+                    <div class="option-icon">🖥️</div>
+                    <div>
+                        <strong>Interfaz Gráfica</strong><br>
+                        Formulario con controles visuales
+                    </div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">🔄</div>
+                    <div>
+                        <strong>Procesamiento Dinámico</strong><br>
+                        Análisis según selección del usuario
+                    </div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">📊</div>
+                    <div>
+                        <strong>Múltiples Análisis</strong><br>
+                        4 tipos diferentes de procesos
+                    </div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">✅</div>
+                    <div>
+                        <strong>Validaciones</strong><br>
+                        Control de errores y opciones
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Estructura del Formulario -->
+        <div class="slide">
+            <h2 class="slide-title">🖼️ Estructura del Formulario</h2>
+            
+            <h3 class="slide-subtitle">Grupo 1️⃣: Selección de Base de Datos</h3>
+            <div class="info-box">
+                <p style="margin-bottom: 15px;"><strong>Tipo:</strong> Radio Buttons</p>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Detalle de ventas</div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Detalle de ventas año anterior</div>
+                </div>
+                <p style="margin-top: 15px; color: #e83e8c;"><strong>⚠️ Importante:</strong> Solo se puede seleccionar UNA opción a la vez</p>
+            </div>
+
+            <h3 class="slide-subtitle">Grupo 2️⃣: Selección de Análisis</h3>
+            <div class="info-box">
+                <p style="margin-bottom: 15px;"><strong>Tipo:</strong> Radio Buttons</p>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Resumen</div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Duplicados</div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Crear campo MES</div>
+                </div>
+                <div class="option-card">
+                    <div class="option-icon">⚪</div>
+                    <div>Crear campo ÁREA GEOGRÁFICA</div>
+                </div>
+                <p style="margin-top: 15px; color: #e83e8c;"><strong>⚠️ Importante:</strong> Solo se puede seleccionar UNA opción a la vez</p>
+            </div>
+        </div>
+
+        <!-- SLIDE 4: Especificaciones de Análisis -->
+        <div class="slide">
+            <h2 class="slide-title">⚙️ Especificaciones de Cada Análisis</h2>
+            
+            <div class="two-column">
+                <div class="spec-card">
+                    <h3>📊 1. RESUMEN</h3>
+                    <ul>
+                        <li><strong>Análisis:</strong> Summarization</li>
+                        <li><strong>Campo:</strong> <code>NUM_CLI</code></li>
+                        <li><strong>Salida:</strong> Resumen.IMD</li>
+                    </ul>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>🔍 2. DUPLICADOS</h3>
+                    <ul>
+                        <li><strong>Análisis:</strong> Duplicates</li>
+                        <li><strong>Campo clave:</strong> <code>NUM_FACT</code></li>
+                        <li><strong>Salida:</strong> Duplicados.IMD</li>
+                    </ul>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>📅 3. CREAR CAMPO MES</h3>
+                    <ul>
+                        <li><strong>Análisis:</strong> AppendField</li>
+                        <li><strong>Nombre:</strong> <code>MES</code></li>
+                        <li><strong>Tipo:</strong> Numérico</li>
+                        <li><strong>Ecuación:</strong> <code>@Month(FECHA_FACT)</code></li>
+                    </ul>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>🗺️ 4. ÁREA GEOGRÁFICA</h3>
+                    <ul>
+                        <li><strong>Análisis:</strong> AppendField</li>
+                        <li><strong>Nombre:</strong> <code>AREA_GEO</code></li>
+                        <li><strong>Tipo:</strong> Carácter (2)</li>
+                        <li><strong>Ecuación:</strong> <code>@Left(NUM_CLI, 2)</code></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 5: Elementos del Formulario -->
+        <div class="slide">
+            <h2 class="slide-title">🧩 Elementos del Formulario</h2>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Elemento</th>
+                            <th>Cantidad</th>
+                            <th>Descripción</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>🔘 Grupos de Radio Botones</td>
+                            <td>2</td>
+                            <td>Base de datos y tipo de análisis</td>
+                        </tr>
+                        <tr>
+                            <td>⚪ Radio Botones (Grupo 1)</td>
+                            <td>2</td>
+                            <td>Selección de base de datos</td>
+                        </tr>
+                        <tr>
+                            <td>⚪ Radio Botones (Grupo 2)</td>
+                            <td>4</td>
+                            <td>Selección de tipo de análisis</td>
+                        </tr>
+                        <tr>
+                            <td>✅ Botón Aceptar</td>
+                            <td>1</td>
+                            <td>Ejecutar análisis seleccionado</td>
+                        </tr>
+                        <tr>
+                            <td>❌ Botón Cancelar</td>
+                            <td>1</td>
+                            <td>Cerrar sin ejecutar</td>
+                        </tr>
+                        <tr>
+                            <td>📝 Texto Estático</td>
+                            <td>1</td>
+                            <td>Nombre del desarrollador</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>TOTAL CONTROLES</td>
+                            <td>11</td>
+                            <td>Elementos en el formulario</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="highlight-box" style="margin-top: 30px;">
+                <h3 style="margin-bottom: 15px;">📌 Elemento de Identificación</h3>
+                <p style="font-size: 1.2em;">Agregar un <strong>texto estático</strong> en el formulario que muestre:</p>
+                <p style="font-size: 1.4em; margin-top: 15px; text-align: center;">
+                    "Desarrollado por: <strong>[Tu Nombre]</strong>"
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 6: Flujo de Funcionamiento -->
+        <div class="slide">
+            <h2 class="slide-title">🔄 Flujo de Funcionamiento</h2>
+            
+            <div class="flow-diagram">
+                <div class="flow-step">
+                    <div class="flow-number">1</div>
+                    <div>Usuario ejecuta la macro</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">2</div>
+                    <div>Se muestra el formulario de diálogo</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">3</div>
+                    <div>Usuario selecciona UNA base de datos (Grupo 1)</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">4</div>
+                    <div>Usuario selecciona UN tipo de análisis (Grupo 2)</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">5</div>
+                    <div>Usuario presiona ACEPTAR</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">6</div>
+                    <div>La macro identifica las selecciones realizadas</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">7</div>
+                    <div>Se abre la base de datos seleccionada</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">8</div>
+                    <div>Se ejecuta el análisis correspondiente</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">9</div>
+                    <div>Se muestra/abre el resultado</div>
+                </div>
+                <div class="arrow">↓</div>
+                
+                <div class="flow-step">
+                    <div class="flow-number">10</div>
+                    <div>✅ Fin del proceso</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 7: Consideraciones Importantes -->
+        <div class="slide">
+            <h2 class="slide-title">⚠️ Consideraciones Importantes</h2>
+            
+            <h3 class="slide-subtitle">✅ Validaciones Requeridas</h3>
+            <div class="checklist-item">
+                <div class="check-icon">✓</div>
+                <div>Verificar que el usuario haya seleccionado una opción en cada grupo</div>
+            </div>
+            <div class="checklist-item">
+                <div class="check-icon">✓</div>
+                <div>Si no se selecciona alguna opción, mostrar mensaje de error apropiado</div>
+            </div>
+
+            <h3 class="slide-subtitle">💡 Buenas Prácticas</h3>
+            <div class="checklist-item">
+                <div class="check-icon">✓</div>
+                <div>Usar <code>IGNOREWARNING(TRUE)</code> al inicio para evitar interrupciones</div>
+            </div>
+            <div class="checklist-item">
+                <div class="check-icon">✓</div>
+                <div>Usar <code>Client.RefreshFileExplorer</code> al finalizar para actualizar la vista</div>
+            </div>
+            <div class="checklist-item">
+                <div class="check-icon">✓</div>
+                <div>Utilizar variables claras y comentarios en el código</div>
+            </div>
+
+            <h3 class="slide-subtitle">📁 Nombres de Archivos</h3>
+            <div class="info-box">
+                <p><strong>Base de datos 1:</strong> <code>BD-Detalle de ventas.IMD</code></p>
+                <p><strong>Base de datos 2:</strong> <code>BD-Detalle de ventas año anterior.IMD</code></p>
+            </div>
+        </div>
+
+        <!-- SLIDE 8: Criterios de Evaluación -->
+        <div class="slide">
+            <h2 class="slide-title">📊 Criterios de Evaluación</h2>
+            
+            <div class="score-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Criterio</th>
+                            <th style="text-align: center;">Puntos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Formulario creado correctamente con todos los elementos</td>
+                            <td style="text-align: center; font-weight: 600;">20 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Grupo 1 funciona correctamente (selección de BD)</td>
+                            <td style="text-align: center; font-weight: 600;">15 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Grupo 2 funciona correctamente (selección de análisis)</td>
+                            <td style="text-align: center; font-weight: 600;">15 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Opción RESUMEN funciona correctamente</td>
+                            <td style="text-align: center; font-weight: 600;">10 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Opción DUPLICADOS funciona correctamente</td>
+                            <td style="text-align: center; font-weight: 600;">10 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Opción CREAR CAMPO MES funciona correctamente</td>
+                            <td style="text-align: center; font-weight: 600;">10 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Opción CREAR CAMPO ÁREA GEOGRÁFICA funciona correctamente</td>
+                            <td style="text-align: center; font-weight: 600;">10 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Validaciones y manejo de errores</td>
+                            <td style="text-align: center; font-weight: 600;">5 pts</td>
+                        </tr>
+                        <tr>
+                            <td>Código limpio, comentado y organizado</td>
+                            <td style="text-align: center; font-weight: 600;">5 pts</td>
+                        </tr>
+                        <tr class="total-row">
+                            <td>TOTAL</td>
+                            <td style="text-align: center;">100 pts</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- SLIDE 9: Información de Entrega -->
+        <div class="slide">
+            <h2 class="slide-title">📤 Información de Entrega</h2>
+            
+            <div class="highlight-box">
+                <h3 style="margin-bottom: 20px;">📌 Detalles de Entrega</h3>
+                <div style="font-size: 1.2em; line-height: 2;">
+                    <p><strong>📄 Formato:</strong> Archivo .ISS</p>
+                    <p><strong>📝 Nombre del archivo:</strong> <code>ExamenFinal_[TuNombre].iss</code></p>
+                </div>
+            </div>
+
+            <h3 class="slide-subtitle">📚 Recursos de Ayuda</h3>
+            <div class="info-box">
+                <ul>
+                    <li>Revisar los scripts de clase sobre diálogos</li>
+                    <li>Consultar scripts previos de Summarization, Duplicates y AppendField</li>
+                    <li>Recordar el uso de estructuras <code>Select Case</code> para evaluar opciones</li>
+                    <li>Utilizar <code>If...Then</code> para validar selecciones</li>
+                    <li>Revisar ejemplos de uso de objetos IDEA (Client, Database, Task)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SLIDE 10: Conceptos Integrados -->
+        <div class="slide">
+            <h2 class="slide-title">🎓 Conceptos que Integrarás</h2>
+            
+            <div class="success-banner">
+                <p style="margin-bottom: 20px;">Este ejercicio integra TODOS los conceptos vistos durante el curso:</p>
+                <div>
+                    <span class="icon-badge">📦 Variables y tipos de datos</span>
+                    <span class="icon-badge">🔀 Estructuras condicionales</span>
+                    <span class="icon-badge">🔄 Ciclos (opcional)</span>
+                    <span class="icon-badge">🏢 Objetos de IDEA</span>
+                    <span class="icon-badge">🖥️ Interfaz de usuario</span>
+                    <span class="icon-badge">✅ Validaciones</span>
+                    <span class="icon-badge">📊 Análisis de datos</span>
+                </div>
+            </div>
+
+            <div class="two-column" style="margin-top: 40px;">
+                <div class="spec-card">
+                    <h3>🎯 Habilidades Técnicas</h3>
+                    <ul>
+                        <li>Creación de diálogos personalizados</li>
+                        <li>Manejo de controles de usuario</li>
+                        <li>Programación orientada a eventos</li>
+                        <li>Uso de objetos IDEA</li>
+                    </ul>
+                </div>
+                
+                <div class="spec-card">
+                    <h3>💼 Habilidades Profesionales</h3>
+                    <ul>
+                        <li>Automatización de procesos</li>
+                        <li>Validación de datos</li>
+                        <li>Manejo de errores</li>
+                        <li>Documentación de código</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 11: Cierre Motivacional -->
+        <div class="slide">
+            <h2 class="slide-title">🚀 ¡Es tu momento!</h2>
+            
+            <div class="highlight-box" style="text-align: center; padding: 50px;">
+                <h2 style="font-size: 2.5em; margin-bottom: 30px;">💪 ¡DEMUESTRA TODO LO APRENDIDO!</h2>
+                <p style="font-size: 1.4em; line-height: 1.8;">
+                    Crea una herramienta profesional y funcional que automatice procesos de análisis de datos en IDEA.
+                    <br><br>
+                    Este es el proyecto final que integra todos tus conocimientos de IDEAScript.
+                    <br><br>
+                    <strong style="font-size: 1.3em; color: #fff;">¡Mucha suerte! 🍀</strong>
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; font-size: 1.2em; color: #666;">
+                <p>📧 Cualquier duda, consultarme: RAUDY CABRERA</p>
+                <p style="margin-top: 20px; font-weight: 600; color: #667eea;">
+                    "La práctica hace al maestro" - Sigue programando y mejorando
+                </p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="print-button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+
+</body>
+</html>
