@@ -305,6 +305,80 @@
             box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
         }
         
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .navbar-menu a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .navbar-menu a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .navbar-menu a.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        
+        .navbar-menu a.active:hover {
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
         @media print {
             body {
                 background: white;
@@ -313,7 +387,7 @@
                 page-break-after: always;
                 box-shadow: none;
             }
-            .print-button {
+            .print-button, .navbar {
                 display: none;
             }
         }
@@ -332,6 +406,17 @@
     </style>
 </head>
 <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🎓 IDEAScript Avanzado</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html" class="active">🎯 Ejercicio Final</a></li>
+                <li><a href="recursos.html">📚 Recursos</a></li>
+            </ul>
+        </div>
+    </nav>
+    
     <div class="container">
         
         <!-- SLIDE 1: Portada -->

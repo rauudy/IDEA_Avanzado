@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guía de Ejercicios - IDEAScript Avanzado</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .slide {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            margin: 30px 0;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .slide-title {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-size: 3em;
+            font-weight: 700;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .slide-subtitle {
+            font-size: 1.8em;
+            color: #667eea;
+            font-weight: 600;
+            margin: 30px 0 20px 0;
+            border-left: 5px solid #764ba2;
+            padding-left: 20px;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 20px 0;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.3);
+        }
+        
+        .info-box {
+            background: #f8f9fa;
+            border-left: 5px solid #667eea;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 10px;
+        }
+        
+        .category-card {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            padding: 25px;
+            margin: 15px 0;
+            border-radius: 15px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        .category-icon {
+            font-size: 2em;
+            margin-right: 20px;
+            display: inline-block;
+            vertical-align: middle;
+        }
+        
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .exercise-item {
+            background: white;
+            border: 2px solid #667eea;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+        
+        .exercise-item:hover {
+            background: #f0f4ff;
+            transform: scale(1.02);
+        }
+        
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .exercise-name {
+            font-weight: 600;
+            color: #764ba2;
+        }
+        
+        .exercise-file {
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8em;
+        }
+        
+        .code-container {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 15px 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+        
+        .code-keyword {
+            color: #ff79c6;
+        }
+        
+        .code-function {
+            color: #50fa7b;
+        }
+        
+        .code-comment {
+            color: #6272a4;
+            font-style: italic;
+        }
+        
+        .code-string {
+            color: #f1fa8c;
+        }
+        
+        .code-number {
+            color: #bd93f9;
+        }
+        
+        .nav-tabs {
+            display: flex;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #667eea;
+        }
+        
+        .nav-tab {
+            padding: 10px 20px;
+            background: #f8f9fa;
+            border: none;
+            border-radius: 10px 10px 0 0;
+            margin-right: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-tab.active {
+            background: #667eea;
+            color: white;
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .resource-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+        }
+        
+        .resource-icon {
+            font-size: 2em;
+            margin-right: 20px;
+            color: #667eea;
+        }
+        
+        .print-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+        
+        .print-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.6);
+        }
+        
+        .back-to-top {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(245, 87, 108, 0.4);
+            transition: all 0.3s ease;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .back-to-top:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(245, 87, 108, 0.6);
+        }
+        
+        /* Navbar Styles */
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .navbar-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+        
+        .navbar-brand {
+            font-size: 1.5em;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-decoration: none;
+        }
+        
+        .navbar-menu {
+            display: flex;
+            gap: 10px;
+            list-style: none;
+        }
+        
+        .navbar-menu a {
+            display: inline-block;
+            padding: 12px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+        }
+        
+        .navbar-menu a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+        
+        .navbar-menu a.active {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            box-shadow: 0 4px 15px rgba(245, 87, 108, 0.3);
+        }
+        
+        .navbar-menu a.active:hover {
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+        }
+        
+        @media (max-width: 768px) {
+            .navbar-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .navbar-menu {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .slide {
+                page-break-after: always;
+                box-shadow: none;
+            }
+            .print-button, .back-to-top, .navbar {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .slide {
+                padding: 30px 20px;
+            }
+            .slide-title {
+                font-size: 2em;
+            }
+            .two-column {
+                grid-template-columns: 1fr;
+            }
+            .nav-tabs {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="navbar-brand">🎓 IDEAScript Avanzado</a>
+            <ul class="navbar-menu">
+                <li><a href="index.html">🎯 Ejercicio Final</a></li>
+                <li><a href="recursos.html" class="active">📚 Recursos</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        
+        <!-- SLIDE 1: Portada -->
+        <div class="slide">
+            <h1 class="slide-title">📚 GUÍA DE EJERCICIOS</h1>
+            <div class="highlight-box">
+                <h2 style="text-align: center; font-size: 2em; margin-bottom: 20px;">IDEAScript Avanzado</h2>
+                <h3 style="text-align: center; font-size: 1.5em;">Recopilación de Ejercicios Prácticos</h3>
+            </div>
+            <div style="text-align: center; margin-top: 40px; font-size: 1.3em; color: #666;">
+                <p>📚 Capacitación IDEA</p>
+                <p>🏢 SESO S.A.</p>
+                <p style="margin-top: 20px; font-weight: 600; color: #667eea;">
+                    "La práctica hace al maestro" - Sigue programando y mejorando
+                </p>
+            </div>
+        </div>
+
+        <!-- SLIDE 2: Categorías -->
+        <div class="slide">
+            <h2 class="slide-title">📂 Categorías de Ejercicios</h2>
+            
+            <div class="nav-tabs" id="categoryTabs">
+                <button class="nav-tab active" data-tab="variables">📊 Variables</button>
+                <button class="nav-tab" data-tab="functions">🔄 Funciones</button>
+                <button class="nav-tab" data-tab="conditionals">🔀 Condicionales</button>
+                <button class="nav-tab" data-tab="loops">🔄 Bucles</button>
+                <button class="nav-tab" data-tab="dialogs">🖥️ Diálogos</button>
+                <button class="nav-tab" data-tab="database">🗃️ Base de Datos</button>
+                <button class="nav-tab" data-tab="resources">📚 Recursos</button>
+            </div>
+            
+            <!-- Variables Tab -->
+            <div class="tab-content active" id="variables">
+                <h3 class="slide-subtitle">📊 Variables y Tipos de Datos</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Declaración de Variables</span>
+                        <span class="exercise-file">Nuevo Script.iss</span>
+                    </div>
+                    <p>Ejercicio básico de declaración de variables completas, incompletas y dinámicas.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Dim</span> edad <span class="code-keyword">As Integer</span><br>
+                        edad = <span class="code-number">26</span><br>
+                        descripcion = <span class="code-string">"Mi edad es: "</span><br>
+                        <span class="code-comment">'Variable Dinamica</span><br>
+                        estatura = <span class="code-string">"5metros"</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Variables con Tipos Específicos</span>
+                        <span class="exercise-file">Nuevo Script1.iss</span>
+                    </div>
+                    <p>Declaración y asignación de variables con tipos de datos específicos.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Dim</span> edad <span class="code-keyword">As Integer</span><br>
+                        <span class="code-keyword">Dim</span> nombre <span class="code-keyword">As String</span><br>
+                        <span class="code-keyword">Dim</span> soltero <span class="code-keyword">As Boolean</span><br>
+                        edad = <span class="code-number">65</span><br>
+                        nombre = <span class="code-string">"david"</span><br>
+                        soltero = <span class="code-keyword">True</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Entrada de Datos con InputBox</span>
+                        <span class="exercise-file">Nuevo Script3.iss</span>
+                    </div>
+                    <p>Uso de InputBox para capturar datos del usuario y mostrarlos con MsgBox.</p>
+                    <div class="code-container">
+                        nombre = <span class="code-function">InputBox</span>(<span class="code-string">"Ingrese su nombre"</span>)<br>
+                        edad = <span class="code-function">InputBox</span>(<span class="code-string">"Ingrese su edad"</span>)<br>
+                        <span class="code-function">MsgBox</span>(nombre & <span class="code-string">" tiene "</span> & edad & <span class="code-string">" años"</span>)
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Operadores Aritméticos</span>
+                        <span class="exercise-file">Nuevo Script7.iss</span>
+                    </div>
+                    <p>Uso de operadores aritméticos para realizar cálculos básicos.</p>
+                    <div class="code-container">
+                        suma = num1 + num2<br>
+                        resta = num1 - num2<br>
+                        multi = num1 * num2<br>
+                        div = num1 / num2<br>
+                        <span class="code-function">MsgBox</span>(<span class="code-string">"La suma de "</span> & num1 & <span class="code-string">" + "</span> & num2 & <span class="code-string">" = "</span> & suma)
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Operadores Lógicos y de Comparación</span>
+                        <span class="exercise-file">Nuevo Script9.iss</span>
+                    </div>
+                    <p>Uso de operadores lógicos (And, Or, Not) y de comparación.</p>
+                    <div class="code-container">
+                        comprar1 = n1 > n2<br>
+                        comparar2 = n1 = n2<br>
+                        comparar3 = n1 <> n2<br>
+                        logico1 = num1 <span class="code-keyword">Or</span> num2<br>
+                        logico2 = <span class="code-keyword">Not</span> (num1 <span class="code-keyword">And</span> num2)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Funciones Tab -->
+            <div class="tab-content" id="functions">
+                <h3 class="slide-subtitle">🔄 Funciones y Subrutinas</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Funciones Básicas</span>
+                        <span class="exercise-file">Nuevo Script10.iss</span>
+                    </div>
+                    <p>Creación de funciones para realizar cálculos y operaciones específicas.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Function</span> areaC<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Dim</span> radio <span class="code-keyword">As Double</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Const</span> pi = <span class="code-number">3.1416</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;radio = <span class="code-function">InputBox</span>(<span class="code-string">"Ingresa el radio del circulo"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;resultado = pi * radio * radio<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"El area del circulo es: "</span> & resultado)<br>
+                        <span class="code-keyword">End Function</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Llamadas a Funciones</span>
+                        <span class="exercise-file">Nuevo Script10.iss</span>
+                    </div>
+                    <p>Uso de Call para invocar funciones desde otras funciones.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Function</span> bloqueB<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">Call</span> bloqueA<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">Call</span> bloqueA<br>
+                        <span class="code-keyword">End Function</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Resumen de Base de Datos</span>
+                        <span class="exercise-file">Nuevo Script5.iss</span>
+                    </div>
+                    <p>Función para realizar un resumen de una base de datos seleccionada.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Function</span> Summarization<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;archivo = Client.CommonDialogs.FileExplorer<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Set</span> db = Client.OpenDatabase(archivo)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Set</span> task = db.Summarization<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;task.AddFieldToSummarize <span class="code-string">"NUM_CLI"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;dbName = <span class="code-string">"Resumen x cliente.IMD"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;task.OutputDBName = dbName<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;task.PerformTask<br>
+                        <span class="code-keyword">End Function</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Condicionales Tab -->
+            <div class="tab-content" id="conditionals">
+                <h3 class="slide-subtitle">🔀 Estructuras Condicionales</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">If-Then-Else Básico</span>
+                        <span class="exercise-file">Nuevo Script13.iss</span>
+                    </div>
+                    <p>Uso de estructura If-Then-Else para validar usuario y contraseña.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">If</span> user = <span class="code-string">"admin"</span> <span class="code-keyword">And</span> pass = <span class="code-string">"1234"</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"ACCESO CONCEDIDO"</span>)<br>
+                        <span class="code-keyword">Else</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"ACCESO DENEGADO"</span>)<br>
+                        <span class="code-keyword">End If</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">If Anidados</span>
+                        <span class="exercise-file">Nuevo Script13.iss</span>
+                    </div>
+                    <p>Uso de estructuras If anidadas para validaciones más complejas.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">If</span> user = <span class="code-string">"admin"</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">If</span> pass = <span class="code-string">"1234"</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"ACCESO CONCEDIDO"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Else</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"USUARIO CORRECTO, PASSWORD INCORRECTO"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">End If</span><br>
+                        <span class="code-keyword">Else</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"ACCESO DENEGADO"</span>)<br>
+                        <span class="code-keyword">End If</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Select Case</span>
+                        <span class="exercise-file">Nuevo Script16.iss</span>
+                    </div>
+                    <p>Uso de Select Case para manejar múltiples opciones de menú.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Select Case</span> opcion<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Case</span> <span class="code-number">1</span>, <span class="code-number">10</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"Hola buenas tardes"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Case</span> <span class="code-number">2</span>, <span class="code-number">8</span>, <span class="code-number">50</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"Hasta luego, feliz tarde"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Case Else</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"OPCION INVALIDA"</span>)<br>
+                        <span class="code-keyword">End Select</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Menú con Select Case</span>
+                        <span class="exercise-file">Nuevo Script15.iss</span>
+                    </div>
+                    <p>Implementación de un menú completo con Select Case para diferentes opciones.</p>
+                    <div class="code-container">
+                        opcion = <span class="code-function">InputBox</span>(<span class="code-string">"MENU"</span> & salto & <span class="code-string">"1. AÑO ACTUAL"</span> & salto & <span class="code-string">"2. AÑO ANTERIOR"</span> & salto & <span class="code-string">"3. SALIR"</span>)<br>
+                        <span class="code-keyword">If</span> opcion = <span class="code-number">1</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">Call</span> resumenAnioActual<br>
+                        <span class="code-keyword">ElseIf</span> opcion = <span class="code-number">2</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">Call</span> resumenAnioAnterior<br>
+                        <span class="code-keyword">ElseIf</span> opcion = <span class="code-number">3</span> <span class="code-keyword">Then</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"SALIENDO DEL PROGRAMA...."</span>)<br>
+                        <span class="code-keyword">Else</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"OPCION INVALIDA"</span>)<br>
+                        <span class="code-keyword">End If</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Loops Tab -->
+            <div class="tab-content" id="loops">
+                <h3 class="slide-subtitle">🔄 Estructuras Repetitivas</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Bucle For</span>
+                        <span class="exercise-file">Nuevo Script18.iss</span>
+                    </div>
+                    <p>Uso de bucle For para realizar sumatorias.</p>
+                    <div class="code-container">
+                        suma = <span class="code-number">0</span><br>
+                        <span class="code-keyword">For</span> i = <span class="code-number">1</span> <span class="code-keyword">To</span> limite<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;suma = suma + i<br>
+                        <span class="code-keyword">Next</span> i<br>
+                        <span class="code-function">MsgBox</span>(suma)
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Bucle Do While</span>
+                        <span class="exercise-file">Nuevo Script23.iss</span>
+                    </div>
+                    <p>Uso de bucle Do While para contar hacia atrás.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Do While</span> num >= <span class="code-number">1</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(num)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;num = num - <span class="code-number">10</span><br>
+                        <span class="code-keyword">Loop</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Menú con Bucle</span>
+                        <span class="exercise-file">Nuevo Script25.iss</span>
+                    </div>
+                    <p>Implementación de un menú que se repite hasta que el usuario elige salir.</p>
+                    <div class="code-container">
+                        bandera = <span class="code-keyword">True</span><br>
+                        <span class="code-keyword">Do While</span> bandera<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;opcion = <span class="code-function">InputBox</span>(menu)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Select Case</span> opcion<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Case</span> <span class="code-number">3</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;bandera = <span class="code-keyword">False</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">End Select</span><br>
+                        <span class="code-keyword">Loop</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Validación con Bucle</span>
+                        <span class="exercise-file">Nuevo Script29.iss</span>
+                    </div>
+                    <p>Uso de bucle Do While para validar entrada de datos.</p>
+                    <div class="code-container">
+                        num = <span class="code-function">InputBox</span>(<span class="code-string">"Ingrese un numero positivo"</span>)<br>
+                        <span class="code-keyword">Do While</span> num <= <span class="code-number">0</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-function">MsgBox</span>(<span class="code-string">"NOOOOOOOOOOOOO, NUMERO POSITIVO!!!!!!!!!!!!"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;num = <span class="code-function">InputBox</span>(<span class="code-string">"Ingrese un numero positivo"</span>)<br>
+                        <span class="code-keyword">Loop</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Diálogos Tab -->
+            <div class="tab-content" id="dialogs">
+                <h3 class="slide-subtitle">🖥️ Diálogos Personalizados</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Formulario Básico</span>
+                        <span class="exercise-file">Nuevo Script33.iss</span>
+                    </div>
+                    <p>Creación de un formulario básico con campos de texto y botones.</p>
+                    <div class="code-container">
+                        <span class="code-comment">Begin Dialog Formulario 350,75,200,202,"NOMBRES", .NuevoDiálogo</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">Text 47,20,95,14, "Este es el curso de IDEA AVANZADO", .Text1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">TextBox 13,52,164,14, .TextBox1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OKButton 43,155,40,14, "Aceptar", .OKButton1</span><br>
+                        <span class="code-comment">End Dialog</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Radio Buttons</span>
+                        <span class="exercise-file">Nuevo Script39.iss</span>
+                    </div>
+                    <p>Uso de grupos de radio buttons para selección única.</p>
+                    <div class="code-container">
+                        <span class="code-comment">Begin Dialog NuevoDiálogo 307,98,215,150,"NuevoDiálogo", .NuevoDiálogo</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionGroup .OptionButtonGroup1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 15,29,45,14, "BotónRadio", .OptionButton1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 16,46,44,14, "BotónRadio", .OptionButton2</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OKButton 20,109,40,15, "Aceptar", .OKButton1</span><br>
+                        <span class="code-comment">End Dialog</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Checkboxes</span>
+                        <span class="exercise-file">Nuevo Script38.iss</span>
+                    </div>
+                    <p>Uso de checkboxes para selección múltiple.</p>
+                    <div class="code-container">
+                        <span class="code-comment">Begin Dialog NuevoDiálogo 338,97,188,192,"NuevoDiálogo", .NuevoDiálogo</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">CheckBox 105,13,54,13, "Exportar", .CheckBox1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">CheckBox 17,18,40,14, "CASADO", .CheckBox2</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OKButton 32,135,40,14, "Aceptar", .OKButton1</span><br>
+                        <span class="code-comment">End Dialog</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Listas Desplegables</span>
+                        <span class="exercise-file">Nuevo Script43.iss</span>
+                    </div>
+                    <p>Uso de listas desplegables para selección de opciones.</p>
+                    <div class="code-container">
+                        <span class="code-comment">Begin Dialog viaje 335,111,166,175,"Paseo Familia", .NuevoDiálogo</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">ListBox 12,36,75,112, paises(), .ListBox1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">TextBox 103,37,39,14, .TextBox1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OKButton 106,97,40,14, "Aceptar", .OKButton1</span><br>
+                        <span class="code-comment">End Dialog</span>
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Formulario Completo</span>
+                        <span class="exercise-file">Nuevo Script35.iss</span>
+                    </div>
+                    <p>Formulario completo con grupos de opciones para selección de base de datos y análisis.</p>
+                    <div class="code-container">
+                        <span class="code-comment">Begin Dialog NuevoDiálogo 211,149,339,132,"FINAL", .NuevoDiálogo</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionGroup .OptionButtonGroup1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 15,25,65,13, "DETALLE DE VENTAS", .OptionButton1</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 15,38,110,14, "DETALLE DE VENTAS AÑO ANTERIOR", .OptionButton2</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionGroup .OptionButtonGroup2</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 155,25,40,14, "RESUMEN", .OptionButton3</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OptionButton 155,38,48,15, "DUPLICADOS", .OptionButton4</span><br>
+                        &nbsp;&nbsp;<span class="code-comment">OKButton 182,82,40,14, "Aceptar", .OKButton1</span><br>
+                        <span class="code-comment">End Dialog</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Base de Datos Tab -->
+            <div class="tab-content" id="database">
+                <h3 class="slide-subtitle">🗃️ Operaciones con Base de Datos</h3>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Abrir Base de Datos</span>
+                        <span class="exercise-file">Nuevo Script2.iss</span>
+                    </div>
+                    <p>Apertura de bases de datos usando variables.</p>
+                    <div class="code-container">
+                        nombreBase = <span class="code-string">"BD-Detalle de ventas"</span><br>
+                        Client.OpenDatabase(nombreBase)<br>
+                        nombreBase = <span class="code-string">"BD-Clientes"</span><br>
+                        Client.OpenDatabase(nombreBase)
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Seleccionar Archivo</span>
+                        <span class="exercise-file">Nuevo Script4.iss</span>
+                    </div>
+                    <p>Uso de FileExplorer para seleccionar archivos de base de datos.</p>
+                    <div class="code-container">
+                        archivo = Client.CommonDialogs.FileExplorer<br>
+                        Client.OpenDatabase(archivo)
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Agregar Campo</span>
+                        <span class="exercise-file">Nuevo Script6.iss</span>
+                    </div>
+                    <p>Agregar campo virtual a una base de datos.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Set</span> db = Client.OpenDatabase(archivo)<br>
+                        <span class="code-keyword">Set</span> task = db.TableManagement<br>
+                        <span class="code-keyword">Set</span> field = db.TableDef.NewField<br>
+                        field.Name = nombreCampo<br>
+                        field.Type = WI_EDIT_CHAR<br>
+                        field.Equation = <span class="code-string">""" """</span><br>
+                        field.Length = caracteres<br>
+                        task.AppendField field<br>
+                        task.PerformTask
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Importar desde Excel</span>
+                        <span class="exercise-file">Nuevo Script20.iss</span>
+                    </div>
+                    <p>Importar múltiples archivos Excel usando bucle For.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">For</span> i = <span class="code-number">2</span> <span class="code-keyword">To</span> <span class="code-number">4</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Set</span> task = Client.GetImportTask(<span class="code-string">"ImportExcel"</span>)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;dbName = <span class="code-string">"C:\...\Ventas"</span> & i & <span class="code-string">".xlsx"</span><br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;task.FileToImport = dbName<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;task.PerformTask<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;Client.OpenDatabase(dbName)<br>
+                        <span class="code-keyword">Next</span> i
+                    </div>
+                </div>
+                
+                <div class="exercise-item">
+                    <div class="exercise-header">
+                        <span class="exercise-name">Información de Base de Datos</span>
+                        <span class="exercise-file">Nuevo Script22.iss</span>
+                    </div>
+                    <p>Obtener información sobre campos de una base de datos.</p>
+                    <div class="code-container">
+                        <span class="code-keyword">Set</span> db = Client.OpenDatabase(filename)<br>
+                        nRegistros = db.Count<br>
+                        <span class="code-keyword">Set</span> tabla = db.TableDef<br>
+                        nCampos = tabla.Count<br>
+                        <span class="code-keyword">For</span> i = <span class="code-number">1</span> <span class="code-keyword">To</span> nCampos<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-keyword">Set</span> campo = tabla.GetFieldAt(i)<br>
+                        &nbsp;&nbsp;&nbsp;&nbsp;campos = campos & campo.name & Chr(<span class="code-number">13</span>) & Chr(<span class="code-number">10</span>)<br>
+                        <span class="code-keyword">Next</span> i<br>
+                        <span class="code-function">MsgBox</span>(campos)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Recursos Tab -->
+            <div class="tab-content" id="resources">
+                <h3 class="slide-subtitle">📚 Recursos y Referencias</h3>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">📖</div>
+                    <div>
+                        <h3>Documentación Oficial de IDEA</h3>
+                        <p>Consulta la documentación completa de IDEAScript para referencia de funciones y objetos.</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">💻</div>
+                    <div>
+                        <h3>Ejercicios Prácticos</h3>
+                        <p>Realiza todos los ejercicios de esta guía en orden para fortalecer tus habilidades.</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">🔍</div>
+                    <div>
+                        <h3>Depuración de Código</h3>
+                        <p>Usa MsgBox para mostrar valores de variables y verificar el flujo de tu código.</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">📝</div>
+                    <div>
+                        <h3>Comentarios en el Código</h3>
+                        <p>Agrega comentarios explicativos para entender tu código cuando lo revises más tarde.</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">🔄</div>
+                    <div>
+                        <h3>Práctica Constante</h3>
+                        <p>La programación mejora con la práctica regular. Intenta modificar los ejercicios para crear nuevas funcionalidades.</p>
+                    </div>
+                </div>
+                
+                <div class="resource-card">
+                    <div class="resource-icon">📧</div>
+                    <div>
+                        <h3>Soporte</h3>
+                        <p>Para dudas específicas, consulta a tu instructor: RAUDY CABRERA</p>
+                    </div>
+                </div>
+                
+                <div class="highlight-box" style="margin-top: 30px;">
+                    <h3 style="text-align: center; margin-bottom: 20px;">💡 Consejos para el Éxito</h3>
+                    <ul style="font-size: 1.1em; line-height: 1.8;">
+                        <li>Comienza con ejercicios simples antes de pasar a los más complejos</li>
+                        <li>Divide problemas grandes en partes más pequeñas y manejables</li>
+                        <li>Prueba tu código frecuentemente para detectar errores temprano</li>
+                        <li>No tengas miedo de experimentar y hacer cambios en los ejemplos</li>
+                        <li>Consulta esta guía cuando necesites recordar cómo hacer algo específico</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SLIDE 3: Cierre -->
+        <div class="slide">
+            <h2 class="slide-title">🚀 ¡Sigue Practicando!</h2>
+            
+            <div class="highlight-box" style="text-align: center; padding: 50px;">
+                <h2 style="font-size: 2.5em; margin-bottom: 30px;">💪 LA PRÁCTICA HACE AL MAESTRO</h2>
+                <p style="font-size: 1.4em; line-height: 1.8;">
+                    Esta guía contiene todos los ejercicios que has realizado durante el curso.
+                    <br><br>
+                    Úsala como referencia para tus futuros proyectos en IDEA.
+                    <br><br>
+                    <strong style="font-size: 1.3em; color: #fff;">¡Continúa desarrollando tus habilidades! 🚀</strong>
+                </p>
+            </div>
+
+            <div style="text-align: center; margin-top: 40px; font-size: 1.2em; color: #666;">
+                <p>📚 Capacitación IDEA - SESO S.A.</p>
+                <p>👨‍🏫 Instructor: RAUDY CABRERA</p>
+            </div>
+        </div>
+
+    </div>
+
+    <button class="print-button" onclick="window.print()">🖨️ Imprimir / Guardar PDF</button>
+    <button class="back-to-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        // Navegación entre pestañas
+        document.querySelectorAll('.nav-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                // Remover clase active de todas las pestañas y contenidos
+                document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+                document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+                
+                // Agregar clase active a la pestaña clickeada y su contenido
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.tab).classList.add('active');
+            });
+        });
+        
+        // Función para volver al inicio
+        function scrollToTop() {
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+        
+        // Mostrar botón de volver arriba cuando se hace scroll
+        window.addEventListener('scroll', () => {
+            const backToTopButton = document.querySelector('.back-to-top');
+            if (window.scrollY > 300) {
+                backToTopButton.style.display = 'flex';
+            } else {
+                backToTopButton.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
